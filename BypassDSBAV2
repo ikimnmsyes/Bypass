@@ -1,0 +1,76 @@
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Pixeluted/adoniscries/main/Source.lua", true))() --- This Adonis Bypass is not mine
+local cloneref = cloneref or function(...)
+	return ...
+end
+
+local lp = cloneref(game:FindFirstChild("Players").LocalPlayer)
+local Scripts = lp.PlayerScripts.client
+
+Scripts = {Scripts}
+
+for i, v in next, getgc(false) do
+	if typeof(v) == 'function' then
+		if table.find(Scripts, rawget(getfenv(v), "script")) then
+			local upvalues = getupvalues(v)
+			local constants = getconstants(v)
+			local funcinfo = getinfo(v)
+			local funcname = funcinfo.name
+			if #constants >= 1 then
+				local constant1
+				pcall(function()
+					constant1 = getconstant(v, 1)
+				end)
+				local constant3
+				pcall(function()
+					constant3 = getconstant(v, 3)
+				end)
+				local constant5
+				pcall(function()
+					constant5 = getconstant(v, 5)
+				end)
+				local constant9
+				pcall(function()
+					constant9 = getconstant(v, 9)
+				end)
+				local constant10
+				pcall(function()
+					constant10 = getconstant(v, 10)
+				end)
+				local constant11
+				pcall(function()
+					constant11 = getconstant(v, 11)
+				end)
+				local constant12
+				pcall(function()
+					constant12 = getconstant(v, 12)
+				end)
+				if funcname == "checkwalkspeedhax" or funcname == "" and tostring(constant11) == "jumppower hack" or
+					funcname == "detectfly" or funcname == "ban" or funcname == "" and tostring(constant10) ==
+					"Kicked, lol." or funcname == "" and tostring(constant12) == "Stop." or funcname == "" and
+					tostring(constant9) == "tp tool" or funcname == "AntiExploitThing" or funcname ==
+					"FlingPreventionUpdate" or funcanme == "" and tostring(constant5) == "Crows" then
+					hookfunction(v, function(...)
+						return ...
+					end)
+				end
+			end
+		end
+	end
+end
+local LocalPlayer = game.Players.LocalPlayer
+local oldhmmi
+local oldhmmnc
+oldhmmi = hookmetamethod(game, "__index", function(self, method)
+	if self == LocalPlayer and method:lower() == "kick" then
+		return error("Expected ':' not '.' calling member function Kick", 2)
+	end
+	return oldhmmi(self, method)
+end)
+oldhmmnc = hookmetamethod(game, "__namecall", function(self, ...)
+	if self == LocalPlayer and getnamecallmethod():lower() == "kick" then
+		return
+	end
+	return oldhmmnc(self, ...)
+end)
+wait(1)
+game.Players.LocalPlayer.PlayerScripts:FindFirstChild("Anti Exploit"):Destroy()
